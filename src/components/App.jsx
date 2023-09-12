@@ -1,9 +1,9 @@
 import { Component } from "react";
+import { Layout } from "./Layout";
 import { AddContactForm } from "./AddContactForm/AddContactForm";
 import { Container } from "@mui/material";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
-
 import { Title } from "./GlobalStyled";
 
 export class App extends Component  {
@@ -64,14 +64,17 @@ componentDidUpdate(prevProps, prevState) {
   };
 
   render(){
-  return (
-    <Container maxWidth="xl">
+    return (
+      <Layout>
+        <Container maxWidth="xl">
       <Title>Phonebook</Title>
       <AddContactForm addNewContact={this.addContact} />
       <Title>Contacts</Title>
       <Filter handleChangeFilter={this.handleChangeFilter} />      
       <ContactList contacts={this.getFilterContacts()} onDeleteContact={this.handleDeleteContact} />    
-    </Container>
+        </Container>
+      </Layout>
+    
     );
   };
 };

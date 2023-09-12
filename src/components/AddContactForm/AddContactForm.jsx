@@ -1,15 +1,30 @@
 import styled from '@emotion/styled';
+
 import { Button } from '@mui/material';
 import { PropTypes } from 'prop-types';
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
-const Form = styled.form`
-  margin: 0 auto;
+
+ const Form = styled.form`  
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-flow: column;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 4px;
+  /* flex-direction: column; */
+  gap: 16px;
   width: 400px;
+`;
+
+const LabelForm = styled.label`
+margin: 0;
+margin-bottom: 16px;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 1.33; 
+letter-spacing: -0.18px;
 `;
 
 export class AddContactForm extends Component {
@@ -36,7 +51,7 @@ export class AddContactForm extends Component {
           });
         }}
       >
-        <label>
+        <LabelForm>
           Name
           <input
             id="name"
@@ -48,9 +63,9 @@ export class AddContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
+        </LabelForm>
 
-        <label>
+        <LabelForm>
           Number
           <input
             id="number"
@@ -62,7 +77,7 @@ export class AddContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </label>
+        </LabelForm>
 
         <Button type="submit" variant="outlined">
           Add contact
