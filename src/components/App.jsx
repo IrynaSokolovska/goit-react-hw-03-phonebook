@@ -6,25 +6,6 @@ import { Filter } from "./Filter/Filter";
 
 import { Title } from "./GlobalStyled";
 
-
-componentDidMount() {
-  const savedContacts = localStorage.getItem('contacts');
-  if (savedContacts !== null) {
-      
-    this.setState({
-      contacts: JSON.parse(savedContacts),
-    });
-  }
-};
-    
-componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.filters);
-    console.log(this.state.filters);
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
 export class App extends Component  {
   state = {
     contacts: [
@@ -35,18 +16,31 @@ export class App extends Component  {
   ],
   filter: ''
   }
-  
-  addContact = (newContact) => {    
-    const normalizedNewContact = newContact;
-    if (
-      this.state.contacts.find(
-        newContact => newContact.name.toLowerCase() === normalizedNewContact.name
-      )
-    ) {
-      alert(`${newContact.name} is already in contacts!`); 
-      return;
-    }    
 
+  componentDidMount() {
+  const savedContacts = localStorage.getItem('contacts');
+  if (savedContacts !== null) {
+      
+    this.setState({
+      contacts: JSON.parse(savedContacts)
+    });
+  }}
+    
+componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+  
+  addContact = (newContact) => {       
+    const checkContact = this.state.contacts.some(items => {
+     return items.name.trim() === newContact.name.trim()  
+    })
+    
+    if (checkContact) {
+      alert(`${newContact.name}  is already in contacts `)
+      return;
+    }
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact]
     }));  
@@ -81,5 +75,3 @@ export class App extends Component  {
     );
   };
 };
-
-export default App;
